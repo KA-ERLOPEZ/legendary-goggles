@@ -2,9 +2,9 @@ package com.sistema.pizzeria.elpirata.api.core.services;
 
 import com.sistema.pizzeria.elpirata.api.core.services.generics.GenericService;
 import com.sistema.pizzeria.elpirata.api.web.dto.PageResponseDTO;
-import com.sistema.pizzeria.elpirata.api.web.dto.PersonaDTO;
+import com.sistema.pizzeria.elpirata.api.web.dto.PersonaFisicaDTO;
 
-public interface PersonaService extends GenericService<PersonaDTO, Long> {
+public interface PersonaFisicaService extends GenericService<PersonaFisicaDTO, Long> {
 
 		
 	/**
@@ -13,7 +13,7 @@ public interface PersonaService extends GenericService<PersonaDTO, Long> {
 	 * @param size
 	 * @return Lista de personas
 	 */
-	PageResponseDTO<PersonaDTO> getAllbyPage(int page, int size);
+	PageResponseDTO<PersonaFisicaDTO> getAllbyPage(int page, int size);
 	
 	/**
 	 * Listar todas las personas filtradas por nombre
@@ -23,12 +23,12 @@ public interface PersonaService extends GenericService<PersonaDTO, Long> {
 	 * @param perNombre
 	 * @return Lista de personas filtradas por nombre
 	 */
-	PageResponseDTO<PersonaDTO> getAllbyPageAndFilterByPerNombre(int page, int size, String perNombre);
+	PageResponseDTO<PersonaFisicaDTO> getAllbyPageAndFilterByPerNombre(int page, int size, String perNombre);
 	
 	/**
 	 * Busca una persona por su cédula.
 	 * @param perCedula
 	 * @return PersonaDTO
 	 */
-	PersonaDTO getByPerCedula(String perCedula);
+	PersonaFisicaDTO getByPerCedula(String perCedula);
 }

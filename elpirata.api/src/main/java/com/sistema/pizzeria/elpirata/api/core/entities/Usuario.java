@@ -47,7 +47,7 @@ public class Usuario  implements Serializable {
     @NotNull(message = "El perfil ID no puede ser nulo")
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "per_id", referencedColumnName = "per_id", nullable = false)
-    private Persona persona;
+    private PersonaFisica persona;
 
     @Column(name = "usu_failed_attempts")
     private int usuFailedAttempts;
@@ -121,11 +121,11 @@ public class Usuario  implements Serializable {
 		this.estado = estado;
 	}
 
-	public Persona getPersona() {
+	public PersonaFisica getPersona() {
 		return persona;
 	}
 
-	public void setPersona(Persona persona) {
+	public void setPersona(PersonaFisica persona) {
 		this.persona = persona;
 	}
 

@@ -56,7 +56,7 @@ public class LiquidacionSalarialDTO {
 	
 	private String ciEmpleado;
 	
-	private List<DetalleLiquidacionSalarialDTO> detalles;
+	private List<DetalleLiquidacionSalarialDTO> detalleLiquidacionSalarial;
 	
 	public LiquidacionSalarialDTO() {
 		// Constructor por defecto
@@ -181,12 +181,12 @@ public class LiquidacionSalarialDTO {
 		this.ciEmpleado = ciEmpleado;
 	}
 	
-	public List<DetalleLiquidacionSalarialDTO> getDetalles() {
-		return detalles;
+	public List<DetalleLiquidacionSalarialDTO> getDetalleLiquidacionSalarial() {
+		return detalleLiquidacionSalarial;
 	}
 	
-	public void setDetalles(List<DetalleLiquidacionSalarialDTO> detalles) {
-		this.detalles = detalles;
+	public void setDetalleLiquidacionSalarial(List<DetalleLiquidacionSalarialDTO> detalleLiquidacionSalarial) {
+		this.detalleLiquidacionSalarial = detalleLiquidacionSalarial;
 	}
 	
 

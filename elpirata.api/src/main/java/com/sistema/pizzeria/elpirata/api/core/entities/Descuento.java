@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.sistema.pizzeria.elpirata.api.Enums.EstadoConcepto;
 import com.sistema.pizzeria.elpirata.api.core.commons.Auditable;
 
 import jakarta.persistence.Column;

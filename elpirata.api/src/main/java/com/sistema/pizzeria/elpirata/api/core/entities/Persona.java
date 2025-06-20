@@ -3,6 +3,8 @@ package com.sistema.pizzeria.elpirata.api.core.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.sistema.pizzeria.elpirata.api.core.commons.Auditable;
+
 /**
  * The persistent class for the personas database table.
  * 
@@ -12,6 +14,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
@@ -26,64 +30,67 @@ import jakarta.validation.constraints.Past;
 @Entity
 @Table(name = "personas")
 @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")
-public class Persona implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Persona extends Auditable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "per_id")
-    private long perId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "per_id")
+	private long perId;
 
-    @NotNull(message = "El barrio no puede ser nulo")
-    @ManyToOne
-    @JoinColumn(name = "bar_id", nullable = false, referencedColumnName = "bar_id")
-    private Barrio barrio;
+	@NotNull(message = "El barrio no puede ser nulo")
+	@ManyToOne
+	@JoinColumn(name = "bar_id", nullable = false, referencedColumnName = "bar_id")
+	private Barrio barrio;
 
-    @NotNull(message = "La nacionalidad no puede ser nula")
-    @ManyToOne
-    @JoinColumn(name = "nac_id", nullable = false, referencedColumnName = "nac_id")
-    private Nacionalidad nacionalidad;
+	@NotNull(message = "La nacionalidad no puede ser nula")
+	@ManyToOne
+	@JoinColumn(name = "nac_id", nullable = false, referencedColumnName = "nac_id")
+	private Nacionalidad nacionalidad;
 
-    @NotBlank(message = "El apellido no puede estar vacío")
-    @Column(name = "per_apellido", nullable = false, length = 150)
-    private String perApellido;
-
-    @NotBlank(message = "La dirección no puede estar vacía")
-    @Column(name = "per_direccion", nullable = false, length = 150)
-    private String perDireccion;
-    
+	@NotBlank(message = "La dirección no puede estar vacía")
+	@Column(name = "per_direccion", nullable = false, length = 150)
+	private String perDireccion;
 
 	@Email(message = "El email debe ser válido")
-    @Column(name = "per_email", unique = true, length = 150)
-    private String perEmail;
+	@Column(name = "per_email", unique = true, length = 150)
+	private String perEmail;
 
-    @Column(name = "per_enabled", nullable = false)
-    private boolean perEnabled = true;
+	@Column(name = "per_enabled", nullable = false)
+	private boolean perEnabled = true;
 
-    @Past(message = "La fecha de nacimiento debe ser en el pasado")
-    @Temporal(TemporalType.DATE)
-    @Column(name = "per_fec_nac", nullable = false)
-    private Date perFecNac;
+	@Past(message = "La fecha de nacimiento debe ser en el pasado")
+	@Temporal(TemporalType.DATE)
+	@Column(name = "per_fec_nac", nullable = false)
+	private Date perFecNac;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Column(name = "per_nombre", nullable = false, length = 150)
-    private String perNombre;
+	@Column(name = "per_nro_ruc", unique = true, length = 60)
+	private String perNroRuc;
 
-    @NotBlank(message = "El número de documento no puede estar vacío")
-    @Column(name = "per_nro_cedula", unique = true, nullable = false, length = 60)
-    private String perNroCedula;
+	@NotBlank(message = "El teléfono no puede estar vacío")
+	@Column(name = "per_telefono", nullable = false, length = 60)
+	private String perTelefono;
 
-    @Column(name = "per_nro_ruc", unique = true, length = 60)
-    private String perNroRuc;
+	public Persona(long perId, Barrio barrio, Nacionalidad nacionalidad, String perDireccion, String perEmail,
+			boolean perEnabled, Date perFecNac, String perNroRuc, String perTelefono) {
+		this.perId = perId;
+		this.barrio = barrio;
+		this.nacionalidad = nacionalidad;
+		this.perDireccion = perDireccion;
+		this.perEmail = perEmail;
+		this.perEnabled = perEnabled;
+		this.perFecNac = perFecNac;
+		this.perNroRuc = perNroRuc;
+		this.perTelefono = perTelefono;
+	}
 
-    @NotBlank(message = "El teléfono no puede estar vacío")
-    @Column(name = "per_telefono", nullable = false, length = 60)
-    private String perTelefono;
+	public Persona() {
 
-    public Persona() {}
+	}
 
-    public long getPerId() {
+	public long getPerId() {
 		return perId;
 	}
 
@@ -105,14 +112,6 @@ public class Persona implements Serializable {
 
 	public void setNacionalidad(Nacionalidad nacionalidad) {
 		this.nacionalidad = nacionalidad;
-	}
-
-	public String getPerApellido() {
-		return perApellido;
-	}
-
-	public void setPerApellido(String perApellido) {
-		this.perApellido = perApellido;
 	}
 
 	public String getPerDireccion() {
@@ -147,22 +146,6 @@ public class Persona implements Serializable {
 		this.perFecNac = perFecNac;
 	}
 
-	public String getPerNombre() {
-		return perNombre;
-	}
-
-	public void setPerNombre(String perNombre) {
-		this.perNombre = perNombre;
-	}
-
-	public String getPerNroCedula() {
-		return perNroCedula;
-	}
-
-	public void setPerNroCedula(String perNroCedula) {
-		this.perNroCedula = perNroCedula;
-	}
-
 	public String getPerNroRuc() {
 		return perNroRuc;
 	}
@@ -179,6 +162,4 @@ public class Persona implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
-    
-    
 }

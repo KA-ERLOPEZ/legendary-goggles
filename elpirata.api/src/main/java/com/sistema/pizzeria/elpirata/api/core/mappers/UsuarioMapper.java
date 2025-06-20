@@ -9,7 +9,7 @@ import com.sistema.pizzeria.elpirata.api.core.entities.Usuario;
 import com.sistema.pizzeria.elpirata.api.web.dto.UsuarioAdminDTO;
 import com.sistema.pizzeria.elpirata.api.web.dto.UsuarioClienteDTO;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { RoleMapper.class, PersonaMapper.class })
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { RoleMapper.class, PersonaFisicaMapper.class })
 public interface UsuarioMapper extends GenericMapper<Usuario, UsuarioAdminDTO> {
 
 	// Mapea Usuario -> UsuarioClienteDTO

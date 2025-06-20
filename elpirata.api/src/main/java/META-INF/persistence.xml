@@ -18,7 +18,6 @@
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.DetalleArqueoPK</class>
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.DetalleCompra</class>
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.DetalleCompraPK</class>
-		<class>com.sistema.pizzeria.elpirata.api.core.entities.DocumentosVenta</class>
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.Dominio</class>
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.Estado</class>
 		<class>com.sistema.pizzeria.elpirata.api.core.entities.HistorialPrecio</class>

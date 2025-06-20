@@ -7,11 +7,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
+import com.sistema.pizzeria.elpirata.api.Enums.EstadoConcepto;
 import com.sistema.pizzeria.elpirata.api.core.commons.GenericMapper;
 import com.sistema.pizzeria.elpirata.api.core.entities.Bonificacion;
 import com.sistema.pizzeria.elpirata.api.core.entities.Contrato;
-import com.sistema.pizzeria.elpirata.api.core.entities.EstadoConcepto;
-import com.sistema.pizzeria.elpirata.api.core.entities.Persona;
+import com.sistema.pizzeria.elpirata.api.core.entities.PersonaFisica;
 import com.sistema.pizzeria.elpirata.api.web.dto.BonificacionDTO;
 
 @Mapper(componentModel = "spring", uses = {ContratoMapper.class},
@@ -46,7 +46,7 @@ public interface BonificacionMapper extends GenericMapper<Bonificacion, Bonifica
             bonificacion.setContrato(new Contrato());
         }
         if (bonificacion.getContrato().getPersona() == null) {
-            bonificacion.getContrato().setPersona(new Persona());
+            bonificacion.getContrato().setPersona(new PersonaFisica());
        
         }
     }

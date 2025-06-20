@@ -9,26 +9,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sistema.pizzeria.elpirata.api.core.entities.Persona;
+import com.sistema.pizzeria.elpirata.api.core.entities.PersonaFisica;
 import com.sistema.pizzeria.elpirata.api.core.exceptions.CustomException;
-import com.sistema.pizzeria.elpirata.api.core.mappers.PersonaMapper;
+import com.sistema.pizzeria.elpirata.api.core.mappers.PersonaFisicaMapper;
 import com.sistema.pizzeria.elpirata.api.core.repositories.BarrioRepository;
 import com.sistema.pizzeria.elpirata.api.core.repositories.NacionalidadRepository;
-import com.sistema.pizzeria.elpirata.api.core.repositories.PersonaRepository;
-import com.sistema.pizzeria.elpirata.api.core.services.PersonaService;
+import com.sistema.pizzeria.elpirata.api.core.repositories.PersonaFisicaRepository;
+import com.sistema.pizzeria.elpirata.api.core.services.PersonaFisicaService;
 import com.sistema.pizzeria.elpirata.api.web.dto.PageResponseDTO;
-import com.sistema.pizzeria.elpirata.api.web.dto.PersonaDTO;
+import com.sistema.pizzeria.elpirata.api.web.dto.PersonaFisicaDTO;
 
 @Service
 @Transactional
-public class PersonaServiceImpl implements PersonaService {
+public class PersonaFisicaServiceImpl implements PersonaFisicaService {
 
-	private final PersonaRepository repository;
-	private final PersonaMapper mapper;
+	private final PersonaFisicaRepository repository;
+	private final PersonaFisicaMapper mapper;
 	private final BarrioRepository barrioRepository;
 	private final NacionalidadRepository nacionalidadRepository;
 
-	public PersonaServiceImpl(PersonaRepository repository, PersonaMapper mapper, BarrioRepository barrioRepository,
+	public PersonaFisicaServiceImpl(PersonaFisicaRepository repository, PersonaFisicaMapper mapper, BarrioRepository barrioRepository,
 			NacionalidadRepository nacionalidadRepository) {
 		this.repository = repository;
 		this.mapper = mapper;
@@ -37,25 +37,25 @@ public class PersonaServiceImpl implements PersonaService {
 	}
 
 	@Override
-	public List<PersonaDTO> findAll() {
+	public List<PersonaFisicaDTO> findAll() {
 		return mapper.toDTOList(repository.findAll());
 	}
 
 	@Override
-	public PersonaDTO findById(Long id) {
-		Persona persona = repository.findById(id)
+	public PersonaFisicaDTO findById(Long id) {
+		PersonaFisica persona = repository.findById(id)
 				.orElseThrow(() -> new CustomException("Persona con ID " + id + " no encontrada."));
 		return mapper.toDTO(persona);
 	}
 
 	@Override
-	public PersonaDTO save(PersonaDTO dto) {
+	public PersonaFisicaDTO save(PersonaFisicaDTO dto) {
 		validar(dto);
 		return mapper.toDTO(repository.save(mapper.toEntity(dto)));
 	}
 
 	@Override
-	public PersonaDTO update(PersonaDTO dto) {
+	public PersonaFisicaDTO update(PersonaFisicaDTO dto) {
 
 		validar(dto);
 		return mapper.toDTO(repository.save(mapper.toEntity(dto)));
@@ -70,21 +70,21 @@ public class PersonaServiceImpl implements PersonaService {
 	}
 
 	@Override
-	public PageResponseDTO<PersonaDTO> getAllbyPage(int page, int size) {
+	public PageResponseDTO<PersonaFisicaDTO> getAllbyPage(int page, int size) {
 
 		Pageable pageable = PageRequest.of(page, size);
-		Page<Persona> personaPage = repository.findAll(pageable);
+		Page<PersonaFisica> personaPage = repository.findAll(pageable);
 		return new PageResponseDTO<>(mapper.toDTOList(personaPage.getContent()), personaPage.getNumber(),
 				personaPage.getSize(), personaPage.getTotalElements(), personaPage.getTotalPages(),
 				personaPage.isLast());
 	}
 
 	@Override
-	public PageResponseDTO<PersonaDTO> getAllbyPageAndFilterByPerNombre(int page, int size, String perNombre) {
+	public PageResponseDTO<PersonaFisicaDTO> getAllbyPageAndFilterByPerNombre(int page, int size, String perNombre) {
 
 		Pageable pageable = PageRequest.of(page, size);
 
-		Page<Persona> personaPage = repository.findByPerNombreContainingIgnoreCase(perNombre, pageable);
+		Page<PersonaFisica> personaPage = repository.findByPerNombreContainingIgnoreCase(perNombre, pageable);
 
 		if (personaPage.isEmpty()) {
 			throw new CustomException("No se encontraron resultados para el nombre: " + perNombre);
@@ -96,15 +96,15 @@ public class PersonaServiceImpl implements PersonaService {
 	}
 
 	@Override
-	public PersonaDTO getByPerCedula(String perCedula) {
+	public PersonaFisicaDTO getByPerCedula(String perCedula) {
 		// TODO Auto-generated method stub
 		return repository.findByPerNroCedula(perCedula).map(mapper::toDTO)
 				.orElseThrow(() -> new CustomException("Persona con cédula " + perCedula + " no encontrada."));
 	}
 
-	private void validar(PersonaDTO dto) {
+	private void validar(PersonaFisicaDTO dto) {
 		
-		Persona existingPersona = repository.findById(dto.getPerId())
+		PersonaFisica existingPersona = repository.findById(dto.getPerId())
 				.orElse(null);
 		
 		if(Objects.isNull(existingPersona) && dto.getPerId() > 0) {
@@ -125,8 +125,8 @@ public class PersonaServiceImpl implements PersonaService {
 			barrioRepository.findById(dto.getBarId())
 					.orElseThrow(() -> new CustomException("Barrio con ID " + dto.getBarId() + " no encontrado."));
 
-			nacionalidadRepository.findById(dto.getNacionalidad().getNacId()).orElseThrow(() -> new CustomException(
-					"Nacionalidad con ID " + dto.getNacionalidad().getNacId() + " no encontrada."));
+			nacionalidadRepository.findById(dto.getNacId()).orElseThrow(() -> new CustomException(
+					"Nacionalidad con ID " + dto.getNacId() + " no encontrada."));
 		}
 		
 

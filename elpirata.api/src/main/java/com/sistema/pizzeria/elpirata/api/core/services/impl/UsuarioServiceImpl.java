@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bastiaanjansen.otp.SecretGenerator;
 import com.sistema.pizzeria.elpirata.api.core.entities.Estado;
-import com.sistema.pizzeria.elpirata.api.core.entities.Persona;
+import com.sistema.pizzeria.elpirata.api.core.entities.PersonaFisica;
 import com.sistema.pizzeria.elpirata.api.core.entities.Role;
 import com.sistema.pizzeria.elpirata.api.core.entities.Usuario;
 import com.sistema.pizzeria.elpirata.api.core.exceptions.CustomException;
 import com.sistema.pizzeria.elpirata.api.core.mappers.UsuarioMapper;
 import com.sistema.pizzeria.elpirata.api.core.repositories.EstadoRepository;
-import com.sistema.pizzeria.elpirata.api.core.repositories.PersonaRepository;
+import com.sistema.pizzeria.elpirata.api.core.repositories.PersonaFisicaRepository;
 import com.sistema.pizzeria.elpirata.api.core.repositories.RoleRepository;
 import com.sistema.pizzeria.elpirata.api.core.repositories.UsuarioRepository;
 import com.sistema.pizzeria.elpirata.api.core.services.UsuarioService;
@@ -31,13 +31,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final UsuarioRepository repository;
 	private final UsuarioMapper mapper;
 	private final EstadoRepository estadoRepository;
-	private final PersonaRepository personaRepository;
+	private final PersonaFisicaRepository personaRepository;
 	private final RoleRepository roleRepository;
 	private final PasswordEncoder passwordEncoder;
 	// private final BycryptPasswordEncoder passwordEncoder;
 
 	public UsuarioServiceImpl(UsuarioRepository repository, UsuarioMapper mapper, EstadoRepository estadoRepository,
-			PersonaRepository personaRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+			PersonaFisicaRepository personaRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
 		this.repository = repository;
 		this.mapper = mapper;
 		this.estadoRepository = estadoRepository;
@@ -67,7 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Estado estado = estadoRepository.findById(dto.getEstado().getEstadoId()).orElseThrow(
 				() -> new CustomException("Estado con ID " + dto.getEstado().getEstadoId() + " no encontrado."));
 
-		Persona persona = personaRepository.findById(dto.getPersona().getPerId()).orElseThrow(
+		PersonaFisica persona = personaRepository.findById(dto.getPersona().getPerId()).orElseThrow(
 				() -> new CustomException("Persona con ID " + dto.getPersona().getPerApellido() + " no encontrada."));
 
 		Usuario usuario = mapper.toEntity(dto);
@@ -92,7 +92,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Estado estado = estadoRepository.findById(dto.getEstado().getEstadoId()).orElseThrow(
 				() -> new CustomException("Estado con ID " + dto.getEstado().getEstadoId() + " no encontrado."));
 
-		Persona persona = personaRepository.findById(dto.getPersona().getPerId()).orElseThrow(
+		PersonaFisica persona = personaRepository.findById(dto.getPersona().getPerId()).orElseThrow(
 				() -> new CustomException("Persona con ID " + dto.getPersona().getPerId() + " no encontrada."));
 
 		existingUsuario.setEstado(estado);

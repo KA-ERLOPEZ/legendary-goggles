@@ -5,9 +5,9 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import com.sistema.pizzeria.elpirata.api.Enums.EstadoConcepto;
 import com.sistema.pizzeria.elpirata.api.core.commons.GenericMapper;
 import com.sistema.pizzeria.elpirata.api.core.entities.Descuento;
-import com.sistema.pizzeria.elpirata.api.core.entities.EstadoConcepto;
 import com.sistema.pizzeria.elpirata.api.web.dto.DescuentoDTO;
 
 @Mapper(componentModel = "spring", 

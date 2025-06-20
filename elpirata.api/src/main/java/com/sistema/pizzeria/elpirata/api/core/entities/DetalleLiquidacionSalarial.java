@@ -3,6 +3,8 @@ package com.sistema.pizzeria.elpirata.api.core.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.sistema.pizzeria.elpirata.api.Enums.TipoConcepto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

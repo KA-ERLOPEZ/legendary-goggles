@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sistema.pizzeria.elpirata.api.core.services.PersonaService;
+import com.sistema.pizzeria.elpirata.api.core.services.PersonaFisicaService;
 import com.sistema.pizzeria.elpirata.api.web.dto.PageResponseDTO;
-import com.sistema.pizzeria.elpirata.api.web.dto.PersonaDTO;
+import com.sistema.pizzeria.elpirata.api.web.dto.PersonaFisicaDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,11 +24,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/personas")
-public class PersonaController {
+public class PersonaFisicaController {
 
-	private final PersonaService personaService;
+	private final PersonaFisicaService personaService;
 
-	public PersonaController(PersonaService personaService) {
+	public PersonaFisicaController(PersonaFisicaService personaService) {
 		this.personaService = personaService;
 	}
 	
@@ -41,7 +41,7 @@ public class PersonaController {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Lista de personas obtenida exitosamente") })
 	@GetMapping
-	public ResponseEntity<List<PersonaDTO>> listarPersonas() {
+	public ResponseEntity<List<PersonaFisicaDTO>> listarPersonas() {
 		return ResponseEntity.ok(personaService.findAll());
 	}
 
@@ -55,7 +55,7 @@ public class PersonaController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Persona obtenida exitosamente"),
 			@ApiResponse(responseCode = "404", description = "Persona no encontrada") })
 	@GetMapping("/{id}")
-	public ResponseEntity<PersonaDTO> obtenerPersonaPorId(@PathVariable long id) {
+	public ResponseEntity<PersonaFisicaDTO> obtenerPersonaPorId(@PathVariable long id) {
 		return ResponseEntity.ok(personaService.findById(id));
 	}
 	
@@ -69,7 +69,7 @@ public class PersonaController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "Persona creada exitosamente"),
 			@ApiResponse(responseCode = "400", description = "Datos inválidos proporcionados") })
 	@PostMapping
-	public ResponseEntity<PersonaDTO> crearPersona(@Valid @RequestBody PersonaDTO personaDTO) {
+	public ResponseEntity<PersonaFisicaDTO> crearPersona(@Valid @RequestBody PersonaFisicaDTO personaDTO) {
 		return ResponseEntity.status(201).body(personaService.save(personaDTO));
 	}
 
@@ -84,7 +84,7 @@ public class PersonaController {
 			@ApiResponse(responseCode = "404", description = "Persona no encontrada"),
 			@ApiResponse(responseCode = "400", description = "Datos inválidos proporcionados") })
 	@PutMapping()
-	public ResponseEntity<PersonaDTO> actualizarPersona(@Valid @RequestBody PersonaDTO personaDTO) {
+	public ResponseEntity<PersonaFisicaDTO> actualizarPersona(@Valid @RequestBody PersonaFisicaDTO personaDTO) {
 
 		return ResponseEntity.ok(personaService.update(personaDTO));
 	}
@@ -114,7 +114,7 @@ public class PersonaController {
 	@Operation(summary = "Listar todas las personas paginadas", description = "Obtiene una lista de todas las personas registradas, paginada.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista de personas paginada obtenida exitosamente") })
 	@GetMapping("/paginada")
-	public ResponseEntity<PageResponseDTO<PersonaDTO>> listarPersonasPaginadas(
+	public ResponseEntity<PageResponseDTO<PersonaFisicaDTO>> listarPersonasPaginadas(
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		return ResponseEntity.ok(personaService.getAllbyPage(page, size));
 	}
@@ -131,7 +131,7 @@ public class PersonaController {
 	@Operation(summary = "Listar todas las personas paginadas y filtradas por nombre", description = "Obtiene una lista de todas las personas registradas, paginada y filtrada por nombre.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Lista de personas paginada y filtrada por nombre obtenida exitosamente") })
 	@GetMapping("/paginada/filtrada")
-	public ResponseEntity<PageResponseDTO<PersonaDTO>> listarPersonasPaginadasFiltradasPorNombre(
+	public ResponseEntity<PageResponseDTO<PersonaFisicaDTO>> listarPersonasPaginadasFiltradasPorNombre(
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
 			@RequestParam String perNombre) {
 		return ResponseEntity.ok(personaService.getAllbyPageAndFilterByPerNombre(page, size, perNombre));
@@ -147,7 +147,7 @@ public class PersonaController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Persona obtenida exitosamente"),
             @ApiResponse(responseCode = "404", description = "Persona no encontrada") })
 	@GetMapping("/cedula/{perCedula}")
-	public ResponseEntity<PersonaDTO> buscarPersonaPorCedula(@PathVariable String perCedula) {
+	public ResponseEntity<PersonaFisicaDTO> buscarPersonaPorCedula(@PathVariable String perCedula) {
 		return ResponseEntity.ok(personaService.getByPerCedula(perCedula));
 	}
 }

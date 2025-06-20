@@ -1,7 +1,6 @@
 package com.sistema.pizzeria.elpirata.api.core.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 
@@ -39,9 +37,6 @@ public class TipoDocumento implements Serializable {
 	@Column(name="tipodoc_nombre", nullable = false, length=50)
 	private String tipodocNombre;
 
-	//bi-directional many-to-one association to DocumentosVenta
-	@OneToMany(mappedBy="tipoDocumento")
-	private List<DocumentosVenta> documentosVentas;
 
 	//uni-directional many-to-one association to Estado
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -83,27 +78,6 @@ public class TipoDocumento implements Serializable {
 		this.tipodocNombre = tipodocNombre;
 	}
 
-	public List<DocumentosVenta> getDocumentosVentas() {
-		return this.documentosVentas;
-	}
-
-	public void setDocumentosVentas(List<DocumentosVenta> documentosVentas) {
-		this.documentosVentas = documentosVentas;
-	}
-
-	public DocumentosVenta addDocumentosVenta(DocumentosVenta documentosVenta) {
-		getDocumentosVentas().add(documentosVenta);
-		documentosVenta.setTipoDocumento(this);
-
-		return documentosVenta;
-	}
-
-	public DocumentosVenta removeDocumentosVenta(DocumentosVenta documentosVenta) {
-		getDocumentosVentas().remove(documentosVenta);
-		documentosVenta.setTipoDocumento(null);
-
-		return documentosVenta;
-	}
 
 	public Estado getEstado() {
 		return this.estado;

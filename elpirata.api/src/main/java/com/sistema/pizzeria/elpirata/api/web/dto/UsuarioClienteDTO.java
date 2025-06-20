@@ -23,7 +23,7 @@ public class UsuarioClienteDTO {
 	private String usuPassword;
 
 	@NotNull(message = "La persona no puede ser nula")
-	private PersonaDTO persona;
+	private PersonaFisicaDTO persona;
 
 	@NotNull(message = "El número de intentos fallidos no puede ser nulo")
 	@NotBlank(message = "El número de intentos fallidos no puede estar vacío")
@@ -44,7 +44,7 @@ public class UsuarioClienteDTO {
 
 	}
 
-	public UsuarioClienteDTO(long usuId, String usuUsername, String usuPassword, PersonaDTO persona,
+	public UsuarioClienteDTO(long usuId, String usuUsername, String usuPassword, PersonaFisicaDTO persona,
 			int usuFailedAttempts, boolean usuTwoFactorEnabled, String usuTwoFactorSecret, long estadoId,
 			String estadoNombre) {
 		this.usuId = usuId;
@@ -84,11 +84,11 @@ public class UsuarioClienteDTO {
 		this.usuPassword = usuPassword;
 	}
 
-	public PersonaDTO getPersona() {
+	public PersonaFisicaDTO getPersona() {
 		return persona;
 	}
 
-	public void setPersona(PersonaDTO persona) {
+	public void setPersona(PersonaFisicaDTO persona) {
 		this.persona = persona;
 	}
 

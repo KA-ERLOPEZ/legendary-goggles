@@ -11,7 +11,7 @@ import com.sistema.pizzeria.elpirata.api.core.entities.Contrato;
 import com.sistema.pizzeria.elpirata.api.web.dto.ContratoDTO;
 
 @Mapper(componentModel = "spring", uses = {
-		PersonaMapper.class, 
+		PersonaFisicaMapper.class, 
 		TipoDocumentoMapper.class,
 		EstadoMapper.class,
 		CargoMapper.class,

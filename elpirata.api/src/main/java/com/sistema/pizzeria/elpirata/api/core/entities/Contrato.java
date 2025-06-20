@@ -63,7 +63,7 @@ public class Contrato extends Auditable implements Serializable {
 	//bi-directional many-to-one association to Persona
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name="per_id", nullable = false, referencedColumnName = "per_id")
-	private Persona persona;
+	private PersonaFisica persona;
 
 	//uni-directional many-to-one association to TipoDocumento
 	@ManyToOne
@@ -133,11 +133,11 @@ public class Contrato extends Auditable implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 	
-	public Persona getPersona() {
+	public PersonaFisica getPersona() {
 		return this.persona;
 	}
 	
-	public void setPersona(Persona persona) {
+	public void setPersona(PersonaFisica persona) {
 		this.persona = persona;
 	}
 

@@ -76,7 +76,7 @@ public class Timbrado implements Serializable {
 	
 	//bi-directional many-to-one association to DocumentosVenta
 	@OneToMany(mappedBy="timbrado", orphanRemoval=true, cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
-	private List<DocumentosVenta> documentosVentas;
+	private List<VentaCabecera> ventas;
 
 	//uni-directional many-to-one association to Estado
 	@ManyToOne(optional=false)
@@ -118,26 +118,26 @@ public class Timbrado implements Serializable {
 		this.timbradoNro = timbradoNro;
 	}
 
-	public List<DocumentosVenta> getDocumentosVentas() {
-		return this.documentosVentas;
+	public List<VentaCabecera> getVentas() {
+		return this.ventas;
 	}
 
-	public void setDocumentosVentas(List<DocumentosVenta> documentosVentas) {
-		this.documentosVentas = documentosVentas;
+	public void setVentas(List<VentaCabecera> ventas) {
+		this.ventas = ventas;
 	}
 
-	public DocumentosVenta addDocumentosVenta(DocumentosVenta documentosVenta) {
-		getDocumentosVentas().add(documentosVenta);
-		documentosVenta.setTimbrado(this);
+	public VentaCabecera addVenta(VentaCabecera venta) {
+		getVentas().add(venta);
+		venta.setTimbrado(this);
 
-		return documentosVenta;
+		return venta;
 	}
 
-	public DocumentosVenta removeDocumentosVenta(DocumentosVenta documentosVenta) {
-		getDocumentosVentas().remove(documentosVenta);
-		documentosVenta.setTimbrado(null);
+	public VentaCabecera removeVenta(VentaCabecera venta) {
+		getVentas().remove(venta);
+		venta.setTimbrado(null);
 
-		return documentosVenta;
+		return venta;
 	}
 
 	public Estado getEstado() {

@@ -34,11 +34,11 @@ public class CajaAperturaCierre implements Serializable {
 	@Column(name="cac_id")
 	private long cacId;
 
-	@Column(name="cac_estado", nullable=false, columnDefinition="TINYINT(1) CHECK(cac_estado IN(0, 1)) DEFAULT 1")
+	@Column(name="cac_estado", nullable=false)
 	private boolean cacEstado;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="cac_fecha_apertura", nullable=false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(name="cac_fecha_apertura", nullable=false)
 	private Date cacFechaApertura;
 
 	@Temporal(TemporalType.TIMESTAMP)

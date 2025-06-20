@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.sistema.pizzeria.elpirata.api.core.entities.Persona;
+import com.sistema.pizzeria.elpirata.api.core.entities.PersonaFisica;
 
-public interface PersonaRepository extends JpaRepository<Persona, Long> {
+public interface PersonaFisicaRepository extends JpaRepository<PersonaFisica, Long> {
 	
 	/**
 	 * Verifica si existe una persona por su número de documento.
@@ -47,7 +47,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	 * @param pageable
 	 * @return Lista de personas que coinciden con el nombre.
 	 */
-	Page<Persona> findByPerNombreContainingIgnoreCase(String perNombre, Pageable pageable);
+	Page<PersonaFisica> findByPerNombreContainingIgnoreCase(String perNombre, Pageable pageable);
 	
 	/**
 	 * Busca una persona por su cédula.
@@ -55,6 +55,6 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	 * @param perCedula
 	 * @return  Optional<Persona>
 	 */
-	Optional<Persona> findByPerNroCedula(String perCedula);
+	Optional<PersonaFisica> findByPerNroCedula(String perCedula);
 
 }
